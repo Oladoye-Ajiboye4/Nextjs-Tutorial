@@ -8,12 +8,12 @@ export default async function DashboardPage() {
   const userId = (await cookies()).get('userId')?.value;
 
   const [users, currentUser] = await Promise.all([
-    prisma.user.findMany({
+    prisma.customer.findMany({
       orderBy: { createdAt: 'desc' },
       select: { id: true, name: true, email: true, createdAt: true },
     }),
     userId
-      ? prisma.user.findUnique({ where: { id: userId }, select: { name: true } })
+      ? prisma.customer.findUnique({ where: { id: userId }, select: { name: true } })
       : null,
   ]);
 
